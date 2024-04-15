@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+{% include "widget.html" %}
+
+        <main class="products container">
+            <div class="products_text">
+                <h2 id="pizza">Nuestros productos</h2>
+            </div>
+            <div class="product-content">
+                {% for producto in productos %}
+                    <div class="product">
+                        <img src="{{producto.imagen.url}}">
+                        <div class="product-txt">
+                            <h3>{{producto.nombre}}</h3>
+                            <p class="precio">$ {{producto.precio}}</p>
+                            {% if producto.disponibilidad == True %}
+                                <a href="{% url 'carro:agregar' producto.id %}#compr" class="agregar-carrito btn-2">Agregar</a>
+                            {% else %}
+                                <p class="no_disponible">No disponible</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %} 
+            </div>
+        </main>
+
+
+
+{% endblock %}

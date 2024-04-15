@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUICK TASTE</title>
+    <link rel="stylesheet" href="{%static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{%static 'icons/styles.css' %}">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="menu"> 
+            <a href="#" class="logo"><span>QUICK</span>TASTE</a>
+            <input type="checkbox" id="menu">
+            <label for="menu">
+                <span class="menu-icono"><i class="icon-bars"></i></span>
+            </label>
+            <nav class="navbar">
+                <ul>
+                    {% if user.is_superuser %}
+                        <li><a href="{% url 'home' %}" class="{% if request.path == '/' %}activo{% endif %}"><span class="icon-content-7"></span> Gestión</a></li>
+                        <li><a href="{% url 'admin_administrar' %}" class="{% if request.path == '/admin_administrar' %}activo{% endif %}"><span class="icon-wrench"></span> Administrar</a></li>
+                    {% else %}
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'home' %}" class="{% if request.path == '/' %}activo{% endif %}"><span class="icon-home"></span> Inicio</a></li>
+                            <li><a href="{% url 'services' %}" class="{% if request.path == '/services' %}activo{% endif %}"><span class="icon-cutlery"></span> Servicios</a></li>
+                            <li><a href="{% url 'mis_compras' %}" class="{% if request.path == '/mis_compras' %}activo{% endif %}"><span class="icon-shop"></span> Mis compras</a></li>
+                            <li><a href="{% url 'contact' %}" class="{% if request.path == '/contact' %}activo{% endif %}"><span class="icon-user"></span> Contactar</a></li>
+                        {% else %}
+                            <li><a href="{% url 'home' %}" class="{% if request.path == '/' %}activo{% endif %}"><span class="icon-home"></span> Inicio</a></li>
+                            <li><a href="{% url 'services' %}" class="{% if request.path == '/services' %}activo{% endif %}"><span class="icon-cutlery"></span> Servicios</a></li>
+                            <li><a href="{% url 'sign_in' %}" class="{% if request.path == '/contact' %}activo{% endif %}"><span class="icon-user"></span> Contactar</a></li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+            </nav>
+            <div class="sign">
+                {% if user.is_authenticated %}
+                <div class="logged">
+                    <a href="{% url 'change_password' %}#cambio"><p class="social_saludo">Hola {{user.username}}</p></a>
+                    &nbsp;&nbsp; <a href="{% url 'signout' %}" class="social_icon icon-sign-out"></a>
+                </div>
+                {% else %}
+                    <a class="signin" href="{% url 'sign_in' %}">Autenticar</a>
+                    <a class="signup" href="{% url 'sign_up' %}">Registrar</a>
+                {% endif %}
+            </div>
+            <div>
+                {% if request.path == '/store' %}
+                    <h1 class="cantidad_productos">{{cantidad_productos}}</h1>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="header-content container">
+            <div class="header-txt">
+                {% if request.path == '/' %}
+                    {% if user.is_superuser %}
+                        <a class="header-btn" href="#info">Pendientes</a>
+                    {% else %}
+                        <a class="header-btn" href="#info">Bienvenido</a>
+                    {% endif %}
+                {% endif %}
+                {% if request.path == '/services' %}
+                    <a class="header-btn" href="#serv">Servicios</a>
+                {% endif %}
+                {% if request.path == '/store' %}
+                    <a class="header-btn" href="#compr">Comprar</a>
+                {% endif %}
+                {% if request.path == '/mis_compras' %}
+                    <a class="header-btn" href="#compr">Compras</a>
+                {% endif %}
+                {% if request.path == '/contact' %}
+                    <a class="header-btn" href="#compr">Contactar</a>
+                {% endif %}
+                {% if request.path == '/admin_administrar' %}
+                    <a class="header-btn" href="#compr">Administrar</a>
+                {% endif %}
+            </div>
+            <div class="header-img">
+            </div>
+        </div>
+    </header>
+    <div id="compr" ></div>
+
+    {% block content %}
+
+    {% endblock %}
+
+
+    <footer class="footer">
+        <div class="footer-content container">
+            <div class="link">
+                <h3>Contactos</h3>
+                <ul>
+                    <li><a href="https://api.whatsapp.com/send?phone=+5358942637&text=Hola, estoy interesado en uno de sus MUEBLES" target="_blank">WhatsApp</a></li>
+                    <li><a href="https://api.whatsapp.com/send?phone=+5355595648&text=Hola, estoy interesado en uno de sus MUEBLES" target="_blank">Telegram</a></li>
+                </ul>
+            </div>
+            <div class="link1">
+                <h3>Síguenos</h3>
+                <div class="social_iconos">
+                    <a class="social" target="_blank" href="#"><span><i class="icon-facebook"></i></span></a>
+                    <a class="social" target="_blank" href="#"><span><i class="icon-social-instagram-outline"></i></span></a>
+                    <a class="social" target="_blank" href="#"><span><i class="icon-youtube"></i></span></a>
+                </div>
+            </div>
+            <div class="link1">
+                <h3>Menú</h3>
+                <ul>
+                    {% if user.is_superuser %}
+                        <li><a href="{% url 'home' %}" class="{% if request.path == '/' %}activo{% endif %}">Gestión</a></li>
+                        <li><a href="{% url 'admin_administrar' %}" class="{% if request.path == '/' %}activo{% endif %}">Administrar</a></li>
+                    {% else %}
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'home' %}" class="{% if request.path == '/' %}activo{% endif %}">Inicio</a></li>
+                            <li><a href="{% url 'services' %}" class="{% if request.path == '/' %}activo{% endif %}">Servicios</a></li>
+                            <li><a href="{% url 'mis_compras' %}" class="{% if request.path == '/' %}activo{% endif %}">Mis compras</a></li>
+                            <li><a href="{% url 'contact' %}" class="{% if request.path == '/' %}activo{% endif %}">Contacto</a></li>
+                        {% else %}
+                            <li><a href="{% url 'home' %}" class="{% if request.path == '/' %}activo{% endif %}">Inicio</a></li>
+                            <li><a href="{% url 'services' %}" class="{% if request.path == '/' %}activo{% endif %}">Servicios</a></li>
+                            <li><a href="{% url 'sign_in' %}" class="{% if request.path == '/' %}activo{% endif %}">Contacto</a></li>
+                        {% endif %}
+                    {% endif %}
+
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <h3 class="footer__copyright">&copy; Todos los derechos reservados - QUICK TASTE - 2024</h3>
+    </footer>
+
+    <script src="{%static 'js/app.js' %}"></script>
+    <script src="{%static 'js/validacion.js' %}"></script>
+    <script src="{%static 'js/pagar.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div id="cont"></div>
+
+<div class="formulario">
+    <div class="formulario_container">
+
+        <form method="" action="">
+
+            <h1><span>QUICK</span>TASTE</h1>
+
+            <label for="">Nombre:</label>
+            <input id="formulario_nombre" type="text">
+
+            <label for="">Apellido:</label>
+            <input id="formulario_apellido" type="text">
+
+            <label for="">Email:</label>
+            <input id="formulario_email" type="email" oninput="validar_email_contacto(event)">
+
+            <label for="">Mensaje:</label>
+            <textarea id="formulario_sms" name=""></textarea>
+
+            <p class="alert" id="formulario_campos_alert">Rellene los campos en rojo por favor.</p>
+            <p class="alert" id="formulario_nombre_alert">Ponga la primera letra del nombre en mayuscula.</p>
+            <p class="alert" id="formulario_apellido_alert">Ponga la primera letra del apellido en mayuscula.</p>
+
+            <div class="btn_enviar_container_general">
+                <div class="btn_enviar_container">
+                    <button class="btn_enviar" type="submit" onclick="validar_formulario(event)">Enviar</button>
+                    <button class="btn_enviar" type="button" onclick="cancelar_validar_formulario()">Cancelar</button>
+                </div>
+            </div>
+
+            <a href="{% url 'oferta_de_trabajos' %}#oferta_trab"><span class="icon-user-plus"></span> Contáctanos para oferta de trabajo</a>
+
+        </form>
+
+    </div>
+</div>
+
+<div class="sociales">
+    <div class="sociales_container">
+        <a class="WhatsApp" href="#"><span class="icon-whatsapp"></span> WhatsApp</a>
+        <a class="Telegram" href="#"><span class="icon-location-arrow"></span> Telegram</a>
+    </div>
+</div>
+
+{% endblock %}

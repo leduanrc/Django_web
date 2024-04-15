@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="dashboard_container">
+        <div class="dashboard">
+            <a class="user" href="{% url 'admin:auth_user_changelist' %}"><span class="icon-user"></span> Gestionar usuarios</a>
+            <a class="group" href="{% url 'admin:auth_group_changelist' %}"><span class="icon-user-plus"></span> Gestionar grupos</a>
+            <a href="{% url 'admin:tienda_categoriaproducto_changelist' %}"><span class="icon-delivery-transport-2"></span> Gestionar servicios</a>
+            <a href="{% url 'admin:tienda_producto_changelist' %}"><span class="icon-cutlery"></span> Gestionar productos</a>
+            <a href="{% url 'admin:oferta_de_trabajo_trabajador_changelist' %}"><span class="icon-envelope"></span> Gestionar ofertas de trabajos</a>
+            <a href="{% url 'admin:comprobante_App_comprobante_changelist' %}"><span class="icon-shopping-cart"></span> Gestionar compras realizadas</a>
+        </div>
+    </div>
+
+{% endblock %}

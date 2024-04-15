@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div id="info"></div>
+
+{% if user.is_superuser %}
+
+<div class="pedidos_container_generalM">
+
+    <div class="pedidos_containerM">
+
+        <h1 class="servicio_deM">Solicitudes de empleo sin atender</h1>
+
+        <table>
+
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Nacimiento</th>
+                <th>Telefono</th>
+                <th>Email</th>
+                <th>Desemeño laboral</th>
+            </tr>
+            {% for worker in workers %}
+            {% if worker.atendidas == False %}
+            <tr>
+                <td>{{worker.nombre}}</td>
+                <td>{{worker.apellido}}</td>
+                <td>{{worker.nacimiento}}</td>
+                <td>{{worker.telefono}}</td>
+                <td>{{worker.email}}</td>
+                <td>{{worker.laboral}}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </table>
+
+    </div>
+
+</div>
+
+
+<div class="pedidos_container_generalB">
+
+    <div class="pedidos_containerB">
+
+        <h1 class="servicio_deB">Solicitudes de empleo atendidas</h1>
+
+        <table>
+
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Nacimiento</th>
+                <th>Telefono</th>
+                <th>Email</th>
+                <th>Desemeño laboral</th>
+            </tr>
+            {% for worker in workers %}
+            {% if worker.atendidas %}
+            <tr>
+                <td>{{worker.nombre}}</td>
+                <td>{{worker.apellido}}</td>
+                <td>{{worker.nacimiento}}</td>
+                <td>{{worker.telefono}}</td>
+                <td>{{worker.email}}</td>
+                <td>{{worker.laboral}}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </table>
+
+    </div>
+
+</div>
+
+{% else %}
+
+{% if user.is_authenticated %}
+
+
+<section class="information">
+    <div class="information-content">
+        <div class="information-1">
+            <div class="info">
+                <span><i class="icon-clock-o"></i></span>
+                <h3>Horario</h3>
+            </div>
+            <p>10:00 am - 11:00 pm <br> Lunes a Domingo</p>
+        </div>
+        <div class="information-1">
+            <div class="info">
+                <span><i class="icon-checkbox-checked"></i></span>
+                <h3>Calidad</h3>
+            </div>
+            <p>Rápida y exelente atención al cliente.</p>
+        </div>
+        <div class="information-1">
+            <div class="info">
+                <span><i class="icon-delivery-transport-2"></i></span>
+                <h3>Domicilio</h3>
+            </div>
+            <p>Servicio a domicilio en toda la ciudad.</p>
+        </div>
+    </div>
+</section>
+
+<div class="header-content container">
+    <div class="header-img">
+        <img class="hero2" src="{%static 'images/hero2.png' %}" alt="">
+    </div>
+    <div class="header-txt">
+        <h1>Disfruta de tu <span>comida</span> favorita desde la comidad de tu hogar.</h1>
+        <p>Bienvenidos a QUICK TASTE, nuestra cadena de comida rápida donde abrazamos tus antojos con los mejores
+            precios y
+            calidad. No dejes que la distancia sea un obstáculo
+            para disfrutar de nuestras delicias.</p>
+    </div>
+</div>
+
+<div class="ofertas_txt_container">
+    <h1 class="ofertas_txt">Nuestras ofertas</h1>
+</div>
+<div class="ofertas_container container">
+    <div class="imagen">
+        <img src="{%static 'images/oferta1.jpg' %}" alt="">
+    </div>
+    <div class="imagen">
+        <img src="{%static 'images/oferta2.webp' %}" alt="">
+    </div>
+    <div class="imagen">
+        <img src="{%static 'images/oferta3.jpg' %}" alt="">
+    </div>
+    <div class="imagen">
+        <img src="{%static 'images/oferta4.jpg' %}" alt="">
+    </div>
+    <div class="imagen">
+        <img src="{%static 'images/oferta5.jpg' %}" alt="">
+    </div>
+    <div class="imagen">
+        <img src="{%static 'images/oferta6.jpg' %}" alt="">
+    </div>
+</div>
+
+{% else %}
+<section class="information">
+    <div class="information-content">
+        <div class="information-1">
+            <div class="info">
+                <span><i class="icon-clock-o"></i></span>
+                <h3>Horario</h3>
+            </div>
+            <p>10:00 am - 11:00pm. Lunes a Domingo</p>
+        </div>
+        <div class="information-1">
+            <div class="info">
+                <span><i class="icon-checkbox-checked"></i></span>
+                <h3>Calidad</h3>
+            </div>
+            <p>Rápida y exelente atención al cliente</p>
+        </div>
+        <div class="information-1">
+            <div class="info">
+                <span><i class="icon-delivery-transport-2"></i></span>
+                <h3>Domicilio</h3>
+            </div>
+            <p>Servicio a domicilio en toda la ciudad</p>
+        </div>
+    </div>
+</section>
+
+<div class="header-content container">
+    <div class="header-img">
+        <img class="hero2" src="{%static 'images/hero2.png' %}" alt="">
+    </div>
+    <div class="header-txt">
+        <h1>Disfruta de tu <span>comida</span> favorita desde la comidad de tu hogar.</h1>
+        <p>Bienvenidos a QUICK TASTE, nuestra cadena de comida rápida donde abrazamos tus antojos con los mejores
+            precios y
+            calidad. No dejes que la distancia sea un obstáculo
+            para disfrutar de nuestras delicias.</p>
+    </div>
+</div>
+
+<div class="ver_mas_container">
+    <div class="ver_mas">
+        <h1><a href="{% url 'sign_in' %}">Ver más sobre nosotros <span class="icon-chevron-right"></span><span
+                    class="icon-chevron-right"></span></a></h1>
+    </div>
+</div>
+
+{% endif %}
+
+
+
+{% endif %}
+
+{% endblock %}

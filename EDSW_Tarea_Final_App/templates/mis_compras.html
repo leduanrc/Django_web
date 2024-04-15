@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <div id="serviciooooo_mis"></div>
+
+        <div class="pedidos_container_general">
+
+            <div class="pedidos_container">
+
+                <h1 class="servicio_de">Registro de compras de {{user.username}}</h1>
+
+                <table>
+
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Producto</th>
+                        <th>Tarjeta bancaria</th>
+                        <th>Día / Hora</th>
+                        <th>Total</th>
+                    </tr>
+
+                    {% if compras %}
+                        {% for compra in compras %}
+                            {% if compra.nombre == user.username %}
+                                <tr>
+                                    <td>{{compra.nombre}}</td>
+                                    <td>{{compra.producto}}</td>
+                                    <td>{{compra.targeta}}</td>
+                                    <td>{{compra.created}}</td>
+                                    <td>{{compra.total}}</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td class="no_servicio" colspan="5">No tiene compras realizadas.</td>
+                        </tr>
+                    {% endif %}
+
+                </table>
+
+            </div>  
+
+        </div>
+
+{% endblock %}

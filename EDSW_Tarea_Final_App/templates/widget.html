@@ -1,0 +1,61 @@
+<div class="carrito_container">
+    <div class="carrito_carrito">
+       
+        <table>
+
+            <thead>
+                <tr>
+                    <th class="carro_title" colspan="3">Carro de compras</th>
+                </tr>
+            </tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+            </tr>
+            </thead>
+
+            <tbody>
+                {% if request.session.carro.items %}
+                    {% for key, value in request.session.carro.items %}
+                    <tr>
+                        <td>{{value.nombre}}</td>
+                        <td>{{value.cantidad}}</td>
+                        <td>
+                            <a class="controlar_mas" href="{% url 'carro:agregar' value.producto_id %}#compr">+</a>
+                            <a class="controlar_menos" href="{% url 'carro:restar' value.producto_id %}#compr">-</a>
+                            <a class="controlar_quitar" href="{% url 'carro:eliminar' value.producto_id %}#compr">x</a>
+                            <br/>
+                            $ {{value.precio}} 
+                        </td>
+                    </tr>  
+                    {% endfor %}
+
+                    {% else %}
+                    <tr>
+                        <td colspan="3">
+                            <div class="sin_productos">
+                                Sin productos
+                            </div>
+                        </td>
+                    </tr>
+                    {% endif %}
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td colspan="3">
+                        Total: $ {{importe_total_carro}} 
+                    </td>
+                </tr>
+                {% if request.session.carro.items %}
+                <tr><td colspan="3">
+                    <a class="hacer_pedido" href="{% url 'el_comprobante' %}#compraaaaaar">Hacer Pedido</a>
+                    <a class="cancelar_pedido" href="{% url 'carro:limpiar' %}#compr">Cancelar</a>
+                </td></tr>
+                {% endif %}
+            </tfoot>
+
+        </table>
+
+    </div>
+</div>

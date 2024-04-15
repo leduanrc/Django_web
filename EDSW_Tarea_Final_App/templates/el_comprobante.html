@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <div id="compraaaaaar"></div>
+
+    <div class="realizar_comra_container">
+
+        <div class="realizar_compra">
+
+            <form action="{% url 'guardar_comprobante_compra' %}" method="post">
+
+                <h1 class="realizar_compra_title">Comprobante de pago</h1>
+                <p class="cartel">Los productos están cargados en el carrito.</p>
+
+                {% if request.session.carro.items %}
+                    {% for key, value in request.session.carro.items %}
+                        <div class="pagar_productos">
+                            <p>Producto: <span>{{value.nombre}}</span></p>
+                            <p>Cantidad: <span>{{value.cantidad}}</span></p>
+                            <p>Precio: <span>$ {{value.precio}}</span></p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                {% csrf_token %}
+                <label for="total">Total<span>*</span></label>
+                <input class="total_comprobante" type="text" name="total" value="{{importe_total_carro}}" readonly>
+
+                <label for="nombre">Nombre<span>*</span></label>
+                <input class="nombre_comprobante" type="text" name="nombre" value="{{user.username}}" readonly>
+
+                <label for="targeta">Tarjeta<span>*</span></label>
+                <input class="targeta_comprobante" type="text" id="targeta" name="targeta" maxlength="16" oninput="validar_targeta(event)">
+
+                <label for="telefono">Telefono<span>*</span></label>
+                <input class="telefono_comprobante" type="text" id="telefono" name="telefono" maxlength="8" oninput="validar_telefono(event)">
+
+                <label for="producto">Producto<span>*</span></label>
+                {% if request.session.carro.items %}
+                    {% for key, value in request.session.carro.items %}
+                        <input class="producto_comprobante" type="text" name="producto" value="{{value.nombre}}" readonly>
+                    {% endfor %}
+                {% endif %}
+
+                <label for="direccion">Direccion<span>*</span></label>
+                <textarea id="direccion" name="direccion"></textarea>
+
+                <p class="alertaaaaa" id="alerta_comprar_error">Rellene los campos en rojo por favor.</p>
+
+                <div class="botones">
+                    <button  class="btn" type="submit" onclick="pagar(event)">Enviar</button>
+                    <button  class="btn" type="button" onclick="cancelar_pagar()">Cancelar</button>
+                </div>
+
+            </form>
+            
+        </div>
+
+    </div>
+
+{% endblock %}

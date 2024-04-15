@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="sign">
+
+    <div class="sign_container">
+
+        <form method="post">
+
+            <h1><span>QUICK</span>TASTE</h1>
+
+            {% csrf_token %}
+            {{form}}
+
+            <button type="submit">Autenticar</button>
+            
+            <p class="pp">No tengo cuenta. <a class="aa" href="{% url 'sign_up' %}">Registrar</a></p>
+            
+        </form>
+        
+    </div>
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div id="serv"></div>
+
+    <div class="servicios_txt_container">
+        <h1 class="servicio_txt">Nuestros servicios</h1>
+    </div>
+
+    <section class="services container">
+
+        {% if user.is_authenticated %}
+
+            {% for categoria in categorias %}
+            <div class="service">
+                <div class="services-1">
+                    <img src="{{categoria.imagen.url}}" alt="">
+                    <div class="textos">
+                        <h3>{{categoria.nombre}}</h3>
+                    </div>
+                </div>
+                <div class="botones">
+                    <a href="{% url 'store' %}#compr">Ver servicios</a>
+                </div>
+            </div>
+            {% endfor %}
+
+        {% else %}
+
+            {% for categoria in categorias %}
+            <div class="service">
+                <div class="services-1">
+                    <img src="{{categoria.imagen.url}}" alt="">
+                    <div class="textos">
+                        <h3>{{categoria.nombre}}</h3>
+                    </div>
+                </div>
+                <div class="botones">
+                    <a href="{% url 'sign_in' %}">Ver servicios</a>
+                </div>
+            </div>
+            {% endfor %}
+
+        {% endif %}
+
+    </section>
+
+{% endblock %}
